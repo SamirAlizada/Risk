@@ -1,7 +1,9 @@
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Border, Side, Alignment
+import pandas as pd
 
-def run_forma8_6(excel_file: str):
+
+def run_forma8_6(excel_file: str, reference_date: str):
     """Forma8_6 doldurur: Forma8_5-dən qrup toplamlarını oxuyub hesablamalar aparır"""
     
     wb = load_workbook(excel_file)
@@ -28,10 +30,16 @@ def run_forma8_6(excel_file: str):
     
     # Forma8_6-nın C8-nə yaz
     ws["C8"].value = product
-    ws["C8"].font = Font(name="A3 Times AZ Lat", size=14)
+    ws["C8"].font = Font(name="A3 Times AZ Lat", size=10)
     ws["C8"].alignment = Alignment(horizontal="center", vertical="center")
     
     print(f"    Forma8_5-dən F sütununda bold toplamları oxuyur...")
+
+    # ================== D6-YA TARİX YAZMA ==================
+    ref_date = pd.to_datetime(reference_date)
+    formatted_date = ref_date.strftime("%d.%m.%Y")
+    ws["D6"].value = formatted_date
+    print(f"    ✓ D6-ya tarix yazıldı: {formatted_date}")
     
     # ================== FORMA8_5-DƏN F SÜTUNUNDA BOLD TOPLAMLARI OXUMA ==================
     group_totals = []
@@ -67,8 +75,8 @@ def run_forma8_6(excel_file: str):
         top=Side(style="thin"),
         bottom=Side(style="thin")
     )
-    font = Font(name="A3 Times AZ Lat", size=14)
-    bold_font = Font(name="A3 Times AZ Lat", size=14, bold=True)
+    font = Font(name="A3 Times AZ Lat", size=10)
+    bold_font = Font(name="A3 Times AZ Lat", size=10, bold=True)
     center = Alignment(horizontal="center", vertical="center")
     
     # ================== C12-C15: QRUP TOPLAMLARI ==================

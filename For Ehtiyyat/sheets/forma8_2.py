@@ -59,8 +59,8 @@ def run_forma8_2(excel_file: str, ucot_file: str, reference_date: str):
         top=Side(style="thin"),
         bottom=Side(style="thin")
     )
-    font = Font(name="A3 Times AZ Lat", size=14)
-    bold_font = Font(name="A3 Times AZ Lat", size=14, bold=True)
+    font = Font(name="A3 Times AZ Lat", size=10)
+    bold_font = Font(name="A3 Times AZ Lat", size=10, bold=True)
     center = Alignment(horizontal="center", vertical="center")
     ROW_HEIGHT = 28
 
@@ -116,6 +116,12 @@ def run_forma8_2(excel_file: str, ucot_file: str, reference_date: str):
     else:
         product = None
         print(f"  ⚠ Product məlumatı tapılmadı")
+
+    # ================== D6-YA TARİX YAZMA ==================
+    ref_date = pd.to_datetime(reference_date)
+    formatted_date = ref_date.strftime("%d.%m.%Y")
+    ws_dst["D6"].value = formatted_date
+    print(f"    ✓ D6-ya tarix yazıldı: {formatted_date}")
 
     # ================== SƏTIR ƏLAVƏSİ ==================
     start_row = 12

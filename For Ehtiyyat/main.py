@@ -8,6 +8,11 @@ from sheets.forma8_11 import run_forma8_11
 from sheets.forma8_7 import run_forma8_7
 from sheets.forma8_10 import run_forma8_10
 from sheets.forma8_8 import run_forma8_8
+from sheets.forma8_12 import run_forma8_12
+from sheets.forma8_9 import run_forma8_9
+from sheets.forma8_13 import run_forma8_13
+from sheets.forma8_14 import run_forma8_14
+
 import os
 from openpyxl import load_workbook
 
@@ -16,7 +21,7 @@ UCOT_FILE = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\UcotA.xlsx"
 TEMPLATE_FILE = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\ALL.xlsx"
 OUTPUT_FOLDER = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\AutoTEST"
 PREVIOUS_FOLDER = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\Previous"
-REFERENCE_DATE = "2025-10-01"
+REFERENCE_DATE = "2026-01-01"
 
 def main():
     print("=" * 60)
@@ -38,6 +43,7 @@ def main():
         run_forma8_1(
             ucot_file=UCOT_FILE,
             template_file=TEMPLATE_FILE,
+            reference_date=REFERENCE_DATE,
             output_folder=OUTPUT_FOLDER
         )
         print("✅ Forma8_1 tamamlandı")
@@ -99,6 +105,7 @@ def main():
         try:
             run_forma8_4(
                 excel_file=excel_path,
+                reference_date=REFERENCE_DATE,
                 ucot_file=UCOT_FILE
             )
             success_count_8_4 += 1
@@ -126,7 +133,9 @@ def main():
     for file in excel_files:
         excel_path = os.path.join(OUTPUT_FOLDER, file)
         try:
-            run_forma8_6(excel_file=excel_path)
+            run_forma8_6(excel_file=excel_path,
+                        reference_date=REFERENCE_DATE
+            )
             success_count_8_6 += 1
         except Exception as e:
             print(f"  ✗ {file}: {e}")
@@ -174,7 +183,7 @@ def main():
             run_forma8_10(
                 excel_file=excel_path,
                 previous_folder=PREVIOUS_FOLDER,
-                reference_date=REFERENCE_DATE  # ✅ Əlavə edildi
+                reference_date=REFERENCE_DATE
             )
             success_count_8_10 += 1
         except Exception as e:
@@ -189,9 +198,70 @@ def main():
             run_forma8_8(
                 excel_file=excel_path,
                 reference_date=REFERENCE_DATE,
-                ucot_file=UCOT_FILE  # ✅ Əlavə edildi
+                ucot_file=UCOT_FILE
             )
             success_count_8_8 += 1
+        except Exception as e:
+            print(f"  ✗ {file}: {e}")
+    
+    # Forma8_12 prosesi
+    print("\n▶ Forma8_12 işlənir...")
+    success_count_8_12 = 0
+    for file in excel_files:
+        excel_path = os.path.join(OUTPUT_FOLDER, file)
+        try:
+            run_forma8_12(
+                excel_file=excel_path,
+                reference_date=REFERENCE_DATE,
+                ucot_file=UCOT_FILE
+            )
+            success_count_8_12 += 1
+        except Exception as e:
+            print(f"  ✗ {file}: {e}")
+    
+    # Forma8_9 prosesi
+    print("\n▶ Forma8_9 işlənir...")
+    success_count_8_9 = 0
+    for file in excel_files:
+        excel_path = os.path.join(OUTPUT_FOLDER, file)
+        try:
+            run_forma8_9(
+                excel_file=excel_path,
+                reference_date=REFERENCE_DATE,
+                ucot_file=UCOT_FILE
+            )
+            success_count_8_9 += 1
+        except Exception as e:
+            print(f"  ✗ {file}: {e}")
+
+    # Forma8_13 prosesi
+    print("\n▶ Forma8_13 işlənir...")
+    success_count_8_13 = 0
+    for file in excel_files:
+        excel_path = os.path.join(OUTPUT_FOLDER, file)
+        try:
+            run_forma8_13(
+                excel_file=excel_path,
+                reference_date=REFERENCE_DATE,
+                ucot_file=UCOT_FILE
+            )
+            success_count_8_13 += 1
+        except Exception as e:
+            print(f"  ✗ {file}: {e}")
+    
+    # Forma8_14 prosesi
+    print("\n▶ Forma8_14 işlənir...")
+    success_count_8_14 = 0
+    for file in excel_files:
+        excel_path = os.path.join(OUTPUT_FOLDER, file)
+        try:
+            run_forma8_14(
+                excel_file=excel_path,
+                reference_date=REFERENCE_DATE,
+                ucot_file=UCOT_FILE,
+                previous_folder=PREVIOUS_FOLDER
+            )
+            success_count_8_14 += 1
         except Exception as e:
             print(f"  ✗ {file}: {e}")
     
@@ -206,6 +276,10 @@ def main():
     print(f"   - Forma8_7: {success_count_8_7}/{len(excel_files)} fayl")
     print(f"   - Forma8_10: {success_count_8_10}/{len(excel_files)} fayl")
     print(f"   - Forma8_8: {success_count_8_8}/{len(excel_files)} fayl")
+    print(f"   - Forma8_12: {success_count_8_12}/{len(excel_files)} fayl")
+    print(f"   - Forma8_9: {success_count_8_9}/{len(excel_files)} fayl")
+    print(f"   - Forma8_13: {success_count_8_13}/{len(excel_files)} fayl")
+    print(f"   - Forma8_14: {success_count_8_14}/{len(excel_files)} fayl")
     print("=" * 60)
 
 

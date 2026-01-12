@@ -16,7 +16,7 @@ def get_rate(product: str) -> float:
     """Product üçün rate qaytarır"""
     return PRODUCT_RATES.get(product, 0)
 
-def run_forma8_1(ucot_file: str, template_file: str, output_folder: str):
+def run_forma8_1(ucot_file: str, template_file: str, reference_date: str, output_folder: str):
     """Forma8_1 yaradır: hər məhsul üçün ayrı Excel"""
     
     os.makedirs(output_folder, exist_ok=True)
@@ -28,8 +28,8 @@ def run_forma8_1(ucot_file: str, template_file: str, output_folder: str):
         top=Side(style="thin"),
         bottom=Side(style="thin")
     )
-    font = Font(name="A3 Times AZ Lat", size=14)
-    bold_font = Font(name="A3 Times AZ Lat", size=14, bold=True)
+    font = Font(name="A3 Times AZ Lat", size=10)
+    bold_font = Font(name="A3 Times AZ Lat", size=10, bold=True)
     center = Alignment(horizontal="center", vertical="center")
     ROW_HEIGHT = 28
 
@@ -68,6 +68,12 @@ def run_forma8_1(ucot_file: str, template_file: str, output_folder: str):
         ws["C8"] = product
         ws["C8"].font = font
         ws["C8"].alignment = center
+
+        # ================== D6-YA TARİX YAZMA ==================
+        ref_date = pd.to_datetime(reference_date)
+        formatted_date = ref_date.strftime("%d.%m.%Y")
+        ws["D6"].value = formatted_date
+        print(f"    ✓ D6-ya tarix yazıldı: {formatted_date}")
 
         # Merge-ləri aç
         for m in list(ws.merged_cells.ranges):

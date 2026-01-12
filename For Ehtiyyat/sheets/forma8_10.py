@@ -139,14 +139,20 @@ def run_forma8_10(excel_file: str, previous_folder: str, reference_date: str):
         top=Side(style="thin"),
         bottom=Side(style="thin")
     )
-    font_style = Font(name="A3 Times AZ Lat", size=14)
-    bold_font = Font(name="A3 Times AZ Lat", size=14, bold=True)
+    font_style = Font(name="A3 Times AZ Lat", size=10)
+    bold_font = Font(name="A3 Times AZ Lat", size=10, bold=True)
     center = Alignment(horizontal="center", vertical="center")
     
     # ================== C8-Ə PRODUCT YAZMA ==================
     ws["C8"].value = product
     ws["C8"].font = font_style
     ws["C8"].alignment = center
+
+    # ================== D6-YA TARİX YAZMA ==================
+    ref_date = pd.to_datetime(reference_date)
+    formatted_date = ref_date.strftime("%d.%m.%Y")
+    ws["D6"].value = formatted_date
+    print(f"    ✓ D6-ya tarix yazıldı: {formatted_date}")
     
     # ================== ƏVVƏLKİ EXCEL-DƏN DATA KOPYALAMA ==================
     previous_file = os.path.join(previous_folder, f"{product}.xlsx")
