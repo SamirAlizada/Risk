@@ -12,6 +12,7 @@ from sheets.forma8_12 import run_forma8_12
 from sheets.forma8_9 import run_forma8_9
 from sheets.forma8_13 import run_forma8_13
 from sheets.forma8_14 import run_forma8_14
+from sheets.yekun_reserv import run_yekun_reserv
 
 import os
 from openpyxl import load_workbook
@@ -21,6 +22,7 @@ UCOT_FILE = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\UcotA.xlsx"
 TEMPLATE_FILE = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\ALL.xlsx"
 OUTPUT_FOLDER = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\AutoTEST"
 PREVIOUS_FOLDER = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\Previous"
+YEKUN_TEMPLATE = r"C:\Users\samir.alizade\Desktop\Automantion\Risk\Yekun Reserv.xlsx"
 REFERENCE_DATE = "2026-01-01"
 
 def main():
@@ -264,6 +266,19 @@ def main():
             success_count_8_14 += 1
         except Exception as e:
             print(f"  ✗ {file}: {e}")
+
+    # Yekun Reserv prosesi
+    print("\n▶ Yekun Reserv işlənir...")
+    try:
+        run_yekun_reserv(
+            yekun_template=YEKUN_TEMPLATE,
+            output_folder=OUTPUT_FOLDER,
+            processed_excels_folder=OUTPUT_FOLDER,
+            reference_date=REFERENCE_DATE
+        )
+        print("✅ Yekun Reserv tamamlandı")
+    except Exception as e:
+        print(f"❌ Yekun Reserv xətası: {e}")
     
     print("\n" + "=" * 60)
     print(f"✅ PROSES TAMAMLANDI:")
